@@ -5,18 +5,18 @@ imagepullsecrets: {{ imagepullsecrets }}
 dockerhub: {{ dockerhub }}
 
 env:
-  javaoptions: {{taxonomy_java_mem_limit|default('-Xmx600m')}}
+  javaoptions: {{taxonomy_java_mem_limit|default('-Xmx2048m')}}
 
 replicaCount: {{taxonomy_replicacount|default(1)}}
 repository: {{taxonomy_repository|default('taxonomy-service')}}
 image_tag: {{ image_tag }}
 resources:
   requests:
-    cpu: {{taxonomy_cpu_req|default('100m')}}
-    memory: {{taxonomy_mem_req|default('100Mi')}}
+    cpu: {{taxonomy_cpu_req|default('500m')}}
+    memory: {{taxonomy_mem_req|default('500Mi')}}
   limits:
     cpu: {{taxonomy_cpu_limit|default('1')}}
-    memory: {{taxonomy_mem_limit|default('1024Mi')}}
+    memory: {{taxonomy_mem_limit|default('3072Mi')}}
 network:
   port: 9006
   targetport: 9000
