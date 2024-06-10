@@ -93,8 +93,8 @@ diagnosticMode:
 ##
 image:
   registry: sunbirded.azurecr.io
-  repository: keycloaktest
-  tag: 21.1.2.5
+  repository: {{keycloak21_repository|default('keycloak21')}}
+  tag: {{ image_tag }}
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -224,7 +224,7 @@ configuration: ""
 existingConfigmap: ""
 ## @param extraStartupArgs Extra default startup args
 ##
-extraStartupArgs: "--spi-connections-jpa-legacy-migration-strategy=update"
+extraStartupArgs: " --import-realm --spi-login-protocol-openid-connect-legacy-logout-redirect-uri=true"
 ## @param initdbScripts Dictionary of initdb scripts
 ## Specify dictionary of scripts to be run at first boot
 ## ref: https://github.com/bitnami/containers/tree/main/bitnami/keycloak#initializing-a-new-instance
@@ -848,7 +848,7 @@ metrics:
 keycloakConfigCli:
   ## @param keycloakConfigCli.enabled Whether to enable keycloak-config-cli job
   ##
-  enabled: true
+  enabled: false
   ## Bitnami keycloak-config-cli image
   ## ref: https://hub.docker.com/r/bitnami/keycloak-config-cli/tags/
   ## @param keycloakConfigCli.image.registry keycloak-config-cli container image registry
@@ -1039,7 +1039,7 @@ externalDatabase:
   host: "{{ keycloak_postgres_host }}"
   port: 5432
   user: "{{ core_vault_postgres_username }}"
-  database: keycloak_2112_test
+  database: keycloak_2112_new
   password: "{{ keycloak_postgres_database }}"
   existingSecret: ""
   existingSecretHostKey: ""
@@ -1081,18 +1081,6 @@ keycloak_password: "{{ keycloak_passowrd }}"
 keycloak_database_type: postgres
 keycloak_database_name: "{{ keycloak_database_name }}"
 sunbird_user_service_base_url: "{{ sunbird_user_service_base_url }}"
-nodebb_client_secret: "{{ nodebb_client_secret }}"
-trampoline_client_secret: "{{ trampoline_client_secret }}"
-android_client_secret: "{{ android_client_secret }}"
-google_auth_desktop_client_secret: "{{ google_auth_desktop_client_secret }}"
-desktop_client_secret: "{{ desktop_client_secret }}"
-google_android_client_secret: "{{ google_android_client_secret }}"
-lms_client_secret: "{{ lms_client_secret }}"
-google_auth_client_secret: "{{ google_auth_client_secret }}"
-trampoline_desktop_client_secret: "{{ trampoline_desktop_client_secret }}"
-trampoline_android_client_secret: "{{ trampoline_android_client_secret }}"
-direct_grant_client_secret: "{{ direct_grant_client_secret }}"
-cassandra_federation_provider_id: "{{ cassandrafederationid }}"
 tenant_name: sunbird
 mail_server_host: "{{ mail_server_host }}"
 mail_server_username: "admin"
